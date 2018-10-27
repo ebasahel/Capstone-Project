@@ -43,9 +43,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initViews();
+
 //        initFirebase();
     }
-
 //    private void initFirebase() {
 //        mImagesRef = FirebaseStorage.getInstance().getReferenceFromUrl("/story1/images/img_y");
 //    }
