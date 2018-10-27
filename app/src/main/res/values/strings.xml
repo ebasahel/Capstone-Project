@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">kidstory</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_share">share</string>
+    <string name="action_about">about</string>
+    <string name="action_story_content">The Story</string>
+    <string name="action_story_quiz">The Quiz</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="twitterdev">\@eman1989</string>
+    <string name="twittergraphic">\@Hanantus</string>
+    <string name="txt_dev_title">developed by</string>
+    <string name="txt_dev_name">Eiman Basahel</string>
+    <string name="txt_graphic_name">Hanan Alsulaiman</string>
+    <string name="txt_graphic_title">Story illustrated by</string>
+
+</resources>

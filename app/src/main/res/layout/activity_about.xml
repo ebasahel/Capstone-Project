@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/spacing_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:showIn="@layout/activity_about">
+
+    <TextView
+        android:id="@+id/devtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="50dp"
+        android:layout_marginTop="200dp"
+        android:textColor="@color/txt_title"
+        android:textStyle="bold"
+        android:text="@string/txt_dev_title"/>
+
+    <TextView
+        android:id="@+id/devname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/devtitle"
+        android:layout_marginEnd="20dp"
+        android:layout_toStartOf="@+id/devtitle"
+        android:textColor="@color/txt_content"
+        android:text="@string/txt_dev_name"/>
+
+    <ImageButton
+        android:id="@+id/twittericondev"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/devtitle"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="130dp"
+        android:layout_marginTop="22dp"
+        android:background="@null"
+        android:src="@drawable/ic_twitter" />
+
+    <ImageButton
+        android:id="@+id/emailicondev"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/twittericondev"
+        android:layout_marginEnd="130dp"
+        android:layout_marginTop="22dp"
+        android:background="@null"
+        android:src="@drawable/ic_email" />
+
+    <TextView
+        android:id="@+id/emaildev"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/emailicondev"
+        android:layout_marginEnd="5dp"
+        android:layout_toStartOf="@+id/emailicondev"
+        android:autoLink="email"/>
+
+    <TextView
+        android:id="@+id/twitteruserdev"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/emailicondev"
+        android:layout_marginEnd="5dp"
+        android:layout_toStartOf="@+id/twittericondev"
+        android:text="@string/twitterdev" />
+
+    <TextView
+        android:id="@+id/graphictitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="50dp"
+        android:layout_marginTop="380dp"
+        android:textColor="@color/txt_title"
+        android:textStyle="bold"
+        android:text="@string/txt_graphic_title"/>
+
+    <TextView
+        android:id="@+id/graphicname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/graphictitle"
+        android:layout_alignBottom="@+id/graphictitle"
+        android:layout_marginEnd="20dp"
+        android:layout_toStartOf="@+id/graphictitle"
+        android:textColor="@color/txt_content"
+        android:text="@string/txt_graphic_name"/>
+
+    <ImageButton
+        android:id="@+id/twittericongraphic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/emailicondev"
+        android:layout_below="@+id/graphictitle"
+        android:layout_marginTop="22dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="130dp"
+        android:background="@null"
+        android:src="@drawable/ic_twitter" />
+
+    <TextView
+        android:id="@+id/twitterusergraphic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/twittericongraphic"
+        android:layout_toStartOf="@+id/twittericongraphic"
+        android:layout_marginEnd="5dp"
+        android:text="@string/twittergraphic"  />
+
+    <ImageButton
+        android:id="@+id/emailicongraphic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/twittericongraphic"
+        android:layout_below="@+id/twitterusergraphic"
+        android:layout_marginTop="15dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="130dp"
+        android:background="@null"
+        android:src="@drawable/ic_email" />
+
+    <TextView
+        android:id="@+id/emailgraphic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/emailicongraphic"
+        android:layout_toStartOf="@+id/emailicongraphic"
+        android:layout_marginEnd="5dp"
+        android:autoLink="email"/>
+
+</RelativeLayout>
