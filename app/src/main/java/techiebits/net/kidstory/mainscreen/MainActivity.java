@@ -18,6 +18,9 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageException;
@@ -36,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
     private StorageReference mStorageReference;
     private StorageReference mImagesRef;
     private boolean          isDownloaded;
+    private FirebaseAuth     mAuth;
+    private FirebaseUser     user;
     private String           imgSuffix = ".png";
 
     @Override
@@ -79,24 +84,6 @@ public class MainActivity extends AppCompatActivity {
                 isDownloaded = false;
                 int errorCode = ((StorageException) exception).getErrorCode();
                 Log.e("DownloadException", exception.getMessage());
-                switch (errorCode) {
-                    case ERROR_OBJECT_NOT_FOUND:
-                        Log.e("DownloadException", "ERROR_OBJECT_NOT_FOUND");
-                        break;
-                    case ERROR_BUCKET_NOT_FOUND:
-                        Log.e("DownloadException", "ERROR_BUCKET_NOT_FOUND");
-                        break;
-                    case ERROR_PROJECT_NOT_FOUND:
-                        Log.e("DownloadException", "ERROR_PROJECT_NOT_FOUND");
-                        break;
-                    case ERROR_NOT_AUTHENTICATED:
-                        Log.e("DownloadException", "ERROR_NOT_AUTHENTICATED");
-                        break;
-                    case ERROR_INVALID_CHECKSUM:
-                        Log.e("DownloadException", "ERROR_INVALID_CHECKSUM");
-                        break;
-                }
-
             }
         });
 //        for (int i = 1; i <= 14; i++) {
@@ -105,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
 
         return isDownloaded;
     }
+
     //endregion
     //region initViews
     private void initViews() {
@@ -112,18 +100,42 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         recyclerViewMain = findViewById(R.id.list_stories);
         actionShare = findViewById(R.id.ic_share);
-        actionShare.setOnClickListener(new View.OnClickListener() {
+        mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
+        if (user != null) {
+            actionShare.setOnClickListener((View v) -> {
+                if (downloadImages()) {
+                    Log.d("isDownloaded", "true");
+                } else {
+                    Log.d("isDownloaded", "false");
+                }
+            });
+        } else {
+            signInAnonymously();
+        }
+
+        //ToDo get List
+        //ToDo implement share
+    }
+    //endregion
+
+    //region Sign in Anonymously
+    private void signInAnonymously() {
+        mAuth.signInAnonymously().addOnSuccessListener(this, new OnSuccessListener<AuthResult>() {
             @Override
-            public void onClick(View v) {
+            public void onSuccess(AuthResult authResult) {
                 if (downloadImages()) {
                     Log.d("isDownloaded", "true");
                 } else {
                     Log.d("isDownloaded", "false");
                 }
             }
+        }).addOnFailureListener(this, new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                Log.e("TAG", "signInAnonymously:FAILURE", exception);
+            }
         });
-        //ToDo get List
-        //ToDo implement share
     }
 
     //endregion
