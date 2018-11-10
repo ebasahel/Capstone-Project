@@ -11,5 +11,6 @@ public class Story1Content extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_story1_content);
+        //ToDo deal with locally downloaded images and sounds to show them
     }
 }

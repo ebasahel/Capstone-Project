@@ -1,11 +1,6 @@
 package techiebits.net.kidstory.mainscreen;
 
-import static com.google.firebase.storage.StorageException.ERROR_BUCKET_NOT_FOUND;
-import static com.google.firebase.storage.StorageException.ERROR_INVALID_CHECKSUM;
-import static com.google.firebase.storage.StorageException.ERROR_NOT_AUTHENTICATED;
-import static com.google.firebase.storage.StorageException.ERROR_OBJECT_NOT_FOUND;
-import static com.google.firebase.storage.StorageException.ERROR_PROJECT_NOT_FOUND;
-
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -16,129 +11,55 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.storage.FileDownloadTask;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageException;
-import com.google.firebase.storage.StorageReference;
-
-import java.io.File;
-import java.io.IOException;
-
+import techiebits.net.kidstory.MySharedPreferences;
 import techiebits.net.kidstory.R;
+import techiebits.net.kidstory.story1.Story1Activity;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private RecyclerView     recyclerViewMain;
-    private Toolbar          toolbar;
-    private ImageView        actionShare;
-    private StorageReference mStorageReference;
-    private StorageReference mImagesRef;
-    private boolean          isDownloaded;
-    private FirebaseAuth     mAuth;
-    private FirebaseUser     user;
-    private String           imgSuffix = ".png";
+    private RecyclerView recyclerViewMain;
+    private Toolbar      toolbar;
+    private ImageView    actionShare;
+    private FirebaseAuth mAuth;
+    private FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initViews();
-
-//        initFirebase();
-    }
-//    private void initFirebase() {
-//        mImagesRef = FirebaseStorage.getInstance().getReferenceFromUrl("/story1/images/img_y");
-//    }
-
-    //region downloadImages
-    private boolean downloadImages() {
-        File localFile = null;
-        File mydir     = this.getDir("story1", MODE_PRIVATE); //Creating an internal dir;
-        if (!mydir.exists()) {
-            mydir.mkdirs();
+        if (user == null) {
+            signInAnonymously();
         }
-        mStorageReference = FirebaseStorage.getInstance().getReference();
-        mImagesRef = mStorageReference.child("story1/images/img_y1.png");
-//        mImagesRef = FirebaseStorage.getInstance().getReferenceFromUrl("gs://firebase-kidstory.appspot.com/story1/images/img_" + i + imgSuffix);
-        try {
-            localFile = File.createTempFile("images", "jpg", mydir);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        mImagesRef.getFile(localFile)
-                .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                        // Successfully downloaded data to local file
-                        isDownloaded = true;
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                // Handle failed download
-                isDownloaded = false;
-                int errorCode = ((StorageException) exception).getErrorCode();
-                Log.e("DownloadException", exception.getMessage());
-            }
-        });
-//        for (int i = 1; i <= 14; i++) {
-//
-//        }
-
-        return isDownloaded;
     }
 
-    //endregion
+
     //region initViews
     private void initViews() {
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         recyclerViewMain = findViewById(R.id.list_stories);
         actionShare = findViewById(R.id.ic_share);
+        actionShare.setOnClickListener(this);
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
-        if (user != null) {
-            actionShare.setOnClickListener((View v) -> {
-                if (downloadImages()) {
-                    Log.d("isDownloaded", "true");
-                } else {
-                    Log.d("isDownloaded", "false");
-                }
-            });
-        } else {
-            signInAnonymously();
-        }
-
         //ToDo get List
-        //ToDo implement share
     }
     //endregion
 
     //region Sign in Anonymously
     private void signInAnonymously() {
-        mAuth.signInAnonymously().addOnSuccessListener(this, new OnSuccessListener<AuthResult>() {
-            @Override
-            public void onSuccess(AuthResult authResult) {
-                if (downloadImages()) {
-                    Log.d("isDownloaded", "true");
-                } else {
-                    Log.d("isDownloaded", "false");
-                }
-            }
-        }).addOnFailureListener(this, new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                Log.e("TAG", "signInAnonymously:FAILURE", exception);
-            }
+        mAuth.signInAnonymously().addOnSuccessListener((AuthResult authResult) -> {
+            MySharedPreferences.getInstance().setUserInfo(this, mAuth.getCurrentUser());
+        }).addOnFailureListener((@NonNull Exception exception) -> {
+            Log.e("TAG", "signInAnonymously:FAILURE", exception);
         });
     }
-
     //endregion
+
     //region menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -161,6 +82,18 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    //endregion
+
+    //region click listener
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.ic_share:
+                startActivity(new Intent(this,Story1Activity.class));
+                break;
+        }
+
     }
     //endregion
 }
