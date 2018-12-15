@@ -11,12 +11,15 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import androidx.navigation.Navigation;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import techiebits.net.kidstory.MySharedPreferences;
 import techiebits.net.kidstory.R;
 import techiebits.net.kidstory.story1.Story1Activity;
+
+import static androidx.navigation.Navigation.findNavController;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -36,7 +39,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-
+    @Override
+    public boolean onSupportNavigateUp() {
+        return Navigation.findNavController(this, R.id.nav_host_fragment).navigateUp();
+    }
     //region initViews
     private void initViews() {
         toolbar = findViewById(R.id.toolbar);

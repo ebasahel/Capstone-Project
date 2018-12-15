@@ -1,15 +1,19 @@
 package techiebits.net.kidstory.aboutscreen;
 
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.Fragment;
 import android.os.Bundle;
 
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import techiebits.net.kidstory.R;
 
-public class AboutActivity extends AppCompatActivity {
+public class AboutActivity extends Fragment {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_about);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.activity_about, container, false);
+        return rootView;
     }
 }

@@ -2,11 +2,14 @@ package techiebits.net.kidstory.story1;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -18,7 +21,9 @@ import techiebits.net.kidstory.R;
 import java.io.File;
 import java.io.IOException;
 
-public class Story1Activity extends AppCompatActivity implements View.OnClickListener {
+import static android.content.Context.MODE_PRIVATE;
+
+public class Story1Activity extends Fragment implements View.OnClickListener {
 
     private StorageReference mStorageReference;
     private StorageReference mImagesRef;
@@ -26,15 +31,15 @@ public class Story1Activity extends AppCompatActivity implements View.OnClickLis
     private ImageButton      storyQuiz;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_story1);
-        initViews();
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.activity_story1, container, false);
+        initViews(rootView);
+        return rootView;
     }
-
-    private void initViews() {
-        storyContent = findViewById(R.id.story_content);
-        storyQuiz    = findViewById(R.id.story_quiz);
+    private void initViews(View view) {
+        storyContent = view.findViewById(R.id.story_content);
+        storyQuiz    = view.findViewById(R.id.story_quiz);
         storyContent.setOnClickListener(this);
         storyQuiz.setOnClickListener(this);
     }
@@ -42,7 +47,7 @@ public class Story1Activity extends AppCompatActivity implements View.OnClickLis
     //region downloadImages
     private void downloadImages() {
         File localFile = null;
-        File mydir     = this.getDir("story1images", MODE_PRIVATE); //Creating an internal dir;
+        File mydir     = getActivity().getDir("story1images", MODE_PRIVATE); //Creating an internal dir;
         if (!mydir.exists()) {
             mydir.mkdirs();
         }
@@ -58,12 +63,12 @@ public class Story1Activity extends AppCompatActivity implements View.OnClickLis
             mImagesRef.getFile(localFile)
                     .addOnSuccessListener(taskSnapshot -> {
                         // Successfully downloaded data to local file
-                        MySharedPreferences.getInstance().setStory1imagesDownloaded(this, true);
+                        MySharedPreferences.getInstance().setStory1imagesDownloaded(getActivity(), true);
                     }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception exception) {
                     // Handle failed download
-                    MySharedPreferences.getInstance().setStory1imagesDownloaded(Story1Activity.this, false);
+                    MySharedPreferences.getInstance().setStory1imagesDownloaded(getActivity(), false);
                     int errorCode = ((StorageException) exception).getErrorCode();
                     Log.e("DownloadException", exception.getMessage());
                 }
@@ -79,8 +84,8 @@ public class Story1Activity extends AppCompatActivity implements View.OnClickLis
             case R.id.story_content:
                 //ToDo download sounds
                 //ToDo if not downloaded show dialog to ask download story content
-                if (MySharedPreferences.getInstance().isStory1imagesDownloaded(this))
-                    startActivity(new Intent(this, Story1Content.class));
+                if (MySharedPreferences.getInstance().isStory1imagesDownloaded(getContext()))
+                    startActivity(new Intent(getContext(), Story1Content.class));
                 else downloadImages();
                 break;
             case R.id.story_quiz:

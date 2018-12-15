@@ -6,4 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".story1.Story1Content">
 
+    <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:src="@tools:sample/backgrounds/scenic"/>
 </android.support.constraint.ConstraintLayout>
