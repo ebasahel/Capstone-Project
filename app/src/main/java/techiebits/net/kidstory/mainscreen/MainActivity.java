@@ -1,6 +1,5 @@
 package techiebits.net.kidstory.mainscreen;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -17,9 +16,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import techiebits.net.kidstory.MySharedPreferences;
 import techiebits.net.kidstory.R;
-import techiebits.net.kidstory.story1.Story1Activity;
-
-import static androidx.navigation.Navigation.findNavController;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -83,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_about) {
-            //ToDo open about page
+            //ToDo call about page
             return true;
         }
 
@@ -96,7 +92,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.ic_share:
-                startActivity(new Intent(this,Story1Activity.class));
+                //ToDo Impl share intent
+//                startActivity(new Intent(this,Story1Activity.class));
                 break;
         }
 
