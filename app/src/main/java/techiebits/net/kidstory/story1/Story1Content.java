@@ -13,7 +13,7 @@ public class Story1Content extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.activity_story1_content, container, false);
+        View rootView = inflater.inflate(R.layout.story1_content, container, false);
         //ToDo deal with locally downloaded images and sounds to show them
         return rootView;
     }

@@ -12,7 +12,7 @@ public class Story1Quiz extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.activity_story1_quiz, container, false);
+        View rootView = inflater.inflate(R.layout.story1_quiz, container, false);
         //ToDo deal with questions and answers stored in real database
         return rootView;
     }

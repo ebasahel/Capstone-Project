@@ -3,7 +3,6 @@ package techiebits.net.kidstory.story1;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import android.util.Log;
@@ -23,7 +22,7 @@ import java.io.IOException;
 
 import static android.content.Context.MODE_PRIVATE;
 
-public class Story1Activity extends Fragment implements View.OnClickListener {
+public class Story1Fragment extends Fragment implements View.OnClickListener {
 
     private StorageReference mStorageReference;
     private StorageReference mImagesRef;
@@ -33,7 +32,7 @@ public class Story1Activity extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.activity_story1, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_story1, container, false);
         initViews(rootView);
         return rootView;
     }
