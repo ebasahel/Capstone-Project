@@ -8,4 +8,8 @@
     <string name="txt_dev_name">إيمان باسهل</string>
     <string name="txt_graphic_name">حنان السليمان</string>
     <string name="txt_graphic_title">رسوم القصة من</string>
+
+
+    <!--> Content Description <-->
+    <string name="cloud">سحابة</string>
 </resources>

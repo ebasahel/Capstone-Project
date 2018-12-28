@@ -2,28 +2,37 @@ package techiebits.net.kidstory.mainscreen;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Layout;
 import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import techiebits.net.kidstory.MySharedPreferences;
 import techiebits.net.kidstory.R;
 
+import static androidx.navigation.ui.NavigationUI.onNavDestinationSelected;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private RecyclerView recyclerViewMain;
     private Toolbar      toolbar;
     private ImageView    actionShare;
     private FirebaseAuth mAuth;
     private FirebaseUser user;
+    NavController navController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,13 +46,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public boolean onSupportNavigateUp() {
-        return Navigation.findNavController(this, R.id.nav_host_fragment).navigateUp();
+        return navController.navigateUp();
     }
     //region initViews
     private void initViews() {
+        navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        recyclerViewMain = findViewById(R.id.list_stories);
+        NavigationUI.setupActionBarWithNavController(this,navController);
         actionShare = findViewById(R.id.ic_share);
         actionShare.setOnClickListener(this);
         mAuth = FirebaseAuth.getInstance();
@@ -51,7 +61,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //ToDo get List
     }
     //endregion
-
     //region Sign in Anonymously
     private void signInAnonymously() {
         mAuth.signInAnonymously().addOnSuccessListener((AuthResult authResult) -> {
@@ -72,18 +81,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_about) {
-            //ToDo call about page
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+        return onNavDestinationSelected(item,navController) ||  super.onOptionsItemSelected(item);
     }
     //endregion
 

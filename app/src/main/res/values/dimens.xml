@@ -2,6 +2,8 @@
     <dimen name="spacing_margin">16dp</dimen>
 
     <dimen name="centering_margin">100dp</dimen>
+    <dimen name="txt_title">18sp</dimen>
+    <dimen name="txt_outline">30sp</dimen>
 
     <!--
 Refer to App Widget Documentation for margin information
