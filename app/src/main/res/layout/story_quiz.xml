@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".story1.Story1Quiz"
+    tools:context=".story.StoryQuiz"
     android:padding="@dimen/spacing_margin">
 
     <ImageView

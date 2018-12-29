@@ -4,10 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".story1.Story1Content">
+    tools:context=".story.StoryContent">
 
     <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:src="@tools:sample/backgrounds/scenic"/>
+            android:src="@drawable/cloud"
+    />
 </android.support.constraint.ConstraintLayout>

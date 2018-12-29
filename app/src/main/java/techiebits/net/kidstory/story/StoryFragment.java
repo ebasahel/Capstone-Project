@@ -1,6 +1,5 @@
-package techiebits.net.kidstory.story1;
+package techiebits.net.kidstory.story;
 
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -9,7 +8,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
+import android.widget.ImageView;
+import androidx.navigation.Navigation;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageException;
@@ -21,24 +21,27 @@ import java.io.File;
 import java.io.IOException;
 
 import static android.content.Context.MODE_PRIVATE;
+import static techiebits.net.kidstory.mainscreen.AllStoriesFragment.STORY_ID;
 
-public class Story1Fragment extends Fragment implements View.OnClickListener {
+public class StoryFragment extends Fragment implements View.OnClickListener {
 
     private StorageReference mStorageReference;
     private StorageReference mImagesRef;
-    private ImageButton      storyContent;
-    private ImageButton      storyQuiz;
+    private ImageView        storyContent, storyQuiz;
+    private int storyId;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_story1, container, false);
+        storyId = getArguments().getInt(STORY_ID, 0);
         initViews(rootView);
         return rootView;
     }
+
     private void initViews(View view) {
         storyContent = view.findViewById(R.id.story_content);
-        storyQuiz    = view.findViewById(R.id.story_quiz);
+        storyQuiz = view.findViewById(R.id.story_quiz);
         storyContent.setOnClickListener(this);
         storyQuiz.setOnClickListener(this);
     }
@@ -83,12 +86,13 @@ public class Story1Fragment extends Fragment implements View.OnClickListener {
             case R.id.story_content:
                 //ToDo download sounds
                 //ToDo if not downloaded show dialog to ask download story content
-                if (MySharedPreferences.getInstance().isStory1imagesDownloaded(getContext()))
-                    startActivity(new Intent(getContext(), Story1Content.class));
-                else downloadImages();
+                if (MySharedPreferences.getInstance().isStory1imagesDownloaded(getContext())) {
+                    Navigation.findNavController(v).navigate(R.id.storyContent);
+                }
+                else { downloadImages(); }
                 break;
             case R.id.story_quiz:
-                //ToDo open Story Quiz Screen
+                Navigation.findNavController(v).navigate(R.id.storyQuiz);
                 break;
         }
     }

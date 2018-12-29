@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.Toast;
 import androidx.navigation.Navigation;
 import techiebits.net.kidstory.R;
 
@@ -25,6 +26,8 @@ public class AllStoriesFragment extends Fragment {
     private StoriesAdapter storiesAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private List<String> storiesList;
+    public static String STORY_ID = "storyid";
+    public static String STORY_TITLE = "storytitle";
     public AllStoriesFragment() {
         // Required empty public constructor
     }
@@ -33,7 +36,6 @@ public class AllStoriesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_all_stories, container, false);
         storiesList = Arrays.asList(getResources().getStringArray(R.array.stories_title));
         storiesRecyclerView = view.findViewById(R.id.list_stories);
@@ -42,9 +44,19 @@ public class AllStoriesFragment extends Fragment {
         storiesAdapter = new StoriesAdapter(storiesList,
                 new StoriesAdapter.OnItemClickListener() {
                     @Override
-                    public void onItemClick(String itemResult) {
-                        //ToDo call story page
-                        Navigation.findNavController(view).navigate(R.id.Story1Fragment);
+                    public void onItemClick(String itemResult, int storyId) {
+                        //ToDo send The name of the story to the next page to set te title
+                        //ToDo download images and sounds, if downloaded navigate to the page
+
+                        //This condition because there's only one story
+                        if (storyId!=1){
+                            Toast.makeText(getContext(),getString(R.string.coming_soon),Toast.LENGTH_LONG).show();
+                        } else {
+                            Bundle bundle = new Bundle();
+                            bundle.putInt(STORY_ID, storyId);
+                            bundle.putString(STORY_TITLE,itemResult);
+                            Navigation.findNavController(view).navigate(R.id.StoryFragment,bundle);
+                        }
                     }
                 }
 

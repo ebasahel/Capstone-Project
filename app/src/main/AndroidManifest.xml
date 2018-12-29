@@ -19,17 +19,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".story1.Story1Activity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".story1.Story1Content"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".story1.Story1Quiz"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".aboutscreen.AboutActivity"
-            android:theme="@style/AppTheme.NoActionBar" >
 
-        </activity>
 
         <receiver android:name=".appwidget.StoriesWidget">
             <intent-filter>

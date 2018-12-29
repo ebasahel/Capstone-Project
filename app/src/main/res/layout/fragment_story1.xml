@@ -1,35 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="@dimen/spacing_margin"
-    tools:context=".story1.Story1Activity">
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/spacing_margin"
+        tools:context=".story.Story1Fragment">
 
-    <ImageButton
-        android:id="@+id/story_content"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:contentDescription="@string/action_story_content"
-        tools:src="@tools:sample/backgrounds/scenic"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintVertical_bias=".3"
 
-         />
+    <FrameLayout android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:id="@+id/story_container"
+                 app:layout_constraintTop_toTopOf="parent"
+                 app:layout_constraintEnd_toEndOf="parent"
+                 app:layout_constraintStart_toStartOf="parent"
+                 app:layout_constraintBottom_toTopOf="@+id/guideline">
 
-    <ImageButton
-        android:id="@+id/story_quiz"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="20dp"
-        android:contentDescription="@string/action_story_quiz"
-        tools:src="@tools:sample/backgrounds/scenic"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/story_content" />
+        <ImageView android:layout_width="match_parent"
+                   android:layout_height="200dp"
+                   android:id="@+id/story_content"
+                   android:src="@drawable/cloud"
+                   android:adjustViewBounds="true"
+                   android:contentDescription="@string/cloud"
+        />
+        <TextView android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:gravity="center"
+                  android:layout_gravity="center"
+                  android:textSize="@dimen/txt_outline"
+                  android:textColor="@color/colorPrimary"
+                  android:ellipsize="middle"
+                  android:text="@string/the_story"/>
+    </FrameLayout>
+
+    <FrameLayout android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 app:layout_constraintTop_toBottomOf="@id/story_container"
+                 app:layout_constraintEnd_toEndOf="parent"
+                 app:layout_constraintStart_toStartOf="parent"
+                 app:layout_constraintTop_toTopOf="@+id/guideline">
+
+        <ImageView android:layout_width="match_parent"
+                   android:layout_height="200dp"
+                   android:id="@+id/story_quiz"
+                   android:src="@drawable/cloud"
+                   android:adjustViewBounds="true"
+                   android:contentDescription="@string/cloud"/>
+
+        <TextView android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:gravity="center"
+                  android:layout_gravity="center"
+                  android:textSize="@dimen/txt_outline"
+                  android:textColor="@color/colorPrimary"
+                  android:ellipsize="middle"
+                  android:text="@string/the_quiz"/>
+    </FrameLayout>
+
+    <android.support.constraint.Guideline
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/guideline"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.5"/>
+
 </android.support.constraint.ConstraintLayout>
