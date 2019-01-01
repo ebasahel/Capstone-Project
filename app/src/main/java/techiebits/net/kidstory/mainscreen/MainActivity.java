@@ -2,6 +2,7 @@ package techiebits.net.kidstory.mainscreen;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_main);
         initViews();
         mAuth = FirebaseAuth.getInstance();
@@ -73,6 +75,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if (arguments != null) {
                     toolbar.setTitle(arguments.getString(STORY_TITLE));
                 }
+//                if(destination.getId()!=R.id.allStoriesFragment) getSupportActionBar().hide();
             }
         });
     }
