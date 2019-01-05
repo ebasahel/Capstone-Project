@@ -27,5 +27,11 @@
     <string name="share_msg">This is a tory teller app!</string>
     <string name="txt_dev_email">eman.basahel@techiebits.net</string>
     <string name="txt_graphic_email">hanantus@gmail.com</string>
+    <string name="dialog_title">No Internet!</string>
+    <string name="dialog_message">You have to be connected to Internet to download the content for the first time
+        only
+    </string>
+    <string name="ok">Go To Settings</string>
+    <string name="cancel">Cancel</string>
 
 </resources>

@@ -7,4 +7,5 @@
     <color name="txt_title">#0478ac</color>
     <color name="txt_content">@android:color/black</color>
     <color name="sky_blue">#8fdbfc</color>
+    <color name="grey">#50000000</color>
 </resources>

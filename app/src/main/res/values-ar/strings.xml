@@ -19,4 +19,9 @@
     <string name="share_msg">يمكنك تحميل تطبيق قصص الأنبياء للأطفال من هنا</string>
     <string name="txt_dev_email">eman.basahel@techiebits.net</string>
     <string name="txt_graphic_email">hanantus@gmail.com</string>
+    <string name="dialog_title">غير متصل بالانترنت!</string>
+    <string name="dialog_message">يجب أن يكون التطبيق متصلا بالانترنت عند الاستخدام للمرة الأولى حتي يتم تحميل محتوى القصة
+    </string>
+    <string name="ok">الذهاب للإعدادات</string>
+    <string name="cancel">إلغا٫</string>
 </resources>

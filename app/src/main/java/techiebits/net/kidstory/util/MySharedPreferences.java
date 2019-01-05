@@ -1,4 +1,4 @@
-package techiebits.net.kidstory;
+package techiebits.net.kidstory.util;
 
 import android.app.Activity;
 import android.content.Context;
@@ -8,8 +8,8 @@ import com.google.firebase.auth.FirebaseUser;
 public class MySharedPreferences  {
     private static MySharedPreferences mInstance = null;
     private String PREF_USER_INFO="user_uid";
-    private String PREF_IMAGES_1="images_1_story";
     private String PREF_Sounds_1="sounds_1_story";
+    private String PREF_FIRST_USE = "firstuse";
     private String sharedPreferencesName= "kidstory";
 
     private MySharedPreferences() {
@@ -36,16 +36,6 @@ public class MySharedPreferences  {
         String temp = getPreferences(context).getString(PREF_USER_INFO,null);
         if(temp == null)return null;
         return temp;
-    }
-
-    public void setStory1imagesDownloaded(Context context, boolean isImagesDownloaded){
-        SharedPreferences.Editor _prefsEditor = getPreferences(context).edit();
-        _prefsEditor.putBoolean(PREF_IMAGES_1, isImagesDownloaded);
-        _prefsEditor.apply();
-    }
-
-    public boolean isStory1imagesDownloaded (Context context){
-        return getPreferences(context).getBoolean(PREF_IMAGES_1,false);
     }
 
     public void setStory1soundsDownloaded(Context context, boolean isSoundsDownloaded){

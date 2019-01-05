@@ -1,10 +1,7 @@
 package techiebits.net.kidstory.mainscreen;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -23,7 +20,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import techiebits.net.kidstory.MySharedPreferences;
+import techiebits.net.kidstory.util.MySharedPreferences;
 import techiebits.net.kidstory.R;
 
 import static androidx.navigation.ui.NavigationUI.onNavDestinationSelected;
@@ -50,15 +47,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             signInAnonymously();
         }
     }
-
-    //region Check Internet Connectivity
-    private boolean isNetworkConnected() {
-        ConnectivityManager cm            = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo         activeNetwork = cm.getActiveNetworkInfo();
-        return activeNetwork != null &&
-                activeNetwork.isConnectedOrConnecting();
-    }
-    //endregion
 
     //region initViews
     private void initViews() {

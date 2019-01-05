@@ -8,11 +8,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import android.widget.Toast;
 import androidx.navigation.Navigation;
 import techiebits.net.kidstory.R;
-
 import java.util.Arrays;
 import java.util.List;
 
@@ -45,9 +43,6 @@ public class AllStoriesFragment extends Fragment {
                 new StoriesAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(String itemResult, int storyId) {
-                        //ToDo send The name of the story to the next page to set te title
-                        //ToDo download images and sounds, if downloaded navigate to the page
-
                         //This condition because there's only one story
                         if (storyId!=1){
                             Toast.makeText(getContext(),getString(R.string.coming_soon),Toast.LENGTH_LONG).show();
@@ -64,5 +59,4 @@ public class AllStoriesFragment extends Fragment {
         storiesRecyclerView.setAdapter(storiesAdapter);
         return view;
     }
-
 }
