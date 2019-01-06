@@ -1,6 +1,5 @@
 package techiebits.net.kidstory.appwidget;
 
-import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;

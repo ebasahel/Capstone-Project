@@ -16,8 +16,6 @@ import techiebits.net.kidstory.R;
 import techiebits.net.kidstory.mainscreen.MainActivity;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 import static techiebits.net.kidstory.appwidget.WidgetFactory.WIDGET_BUNDLE_STRING;
 import static techiebits.net.kidstory.appwidget.WidgetFactory.WIDGET_LIST;
@@ -27,30 +25,28 @@ import static techiebits.net.kidstory.appwidget.WidgetFactory.WIDGET_LIST;
  */
 public class StoriesWidget extends AppWidgetProvider {
 
-    //ToDo Widget
     private Intent intent,openAppIntent;
     private ArrayList<String> mSupplicationsList = new ArrayList<>();
     private String TAG = StoriesWidget.class.getSimpleName();
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-        // There may be multiple widgets active, so update all of them
         FirebaseDatabase  database = FirebaseDatabase.getInstance();
         DatabaseReference myRef    = database.getReference("supplications");
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot child : dataSnapshot.getChildren()){
                     mSupplicationsList.add(child.getValue().toString());
                 }
-                Log.d(TAG, "Supplications List: "+mSupplicationsList.get(2));
+                // There may be multiple widgets active, so update all of them
                 for (int appWidgetId : appWidgetIds) {
                     updateRemoteViews(context,appWidgetManager,appWidgetId,mSupplicationsList);
                 }
             }
 
             @Override
-            public void onCancelled(DatabaseError error) {
+            public void onCancelled(@NonNull DatabaseError error) {
                 // Failed to read value
                 Log.w(TAG, "Failed to read value.", error.toException());
             }
