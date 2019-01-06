@@ -19,7 +19,6 @@ public class AboutFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        //ToDo rearrange layout
         View rootView = inflater.inflate(R.layout.fragment_about, container, false);
         devtitle         = rootView.findViewById(R.id.devtitle);
         devname          = rootView.findViewById(R.id.devname);
