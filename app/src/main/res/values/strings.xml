@@ -34,5 +34,6 @@
     <string name="ok">Go To Settings</string>
     <string name="cancel">Cancel</string>
     <string name="widget_title">Prophets Supplications</string>
+    <string name="volume_is_muted">Please raise the volume up so you can listen to the story!</string>
 
 </resources>

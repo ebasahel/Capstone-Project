@@ -1,14 +1,19 @@
 package techiebits.net.kidstory.mainscreen;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.media.AudioManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
@@ -34,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         initViews();
+        checkVolume();
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
         if (user == null) {
@@ -41,6 +47,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    private void checkVolume(){
+        AudioManager audio = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+        int musicVolume = audio.getStreamVolume(AudioManager.STREAM_MUSIC);
+        if (musicVolume == 0) {
+            Toast.makeText(this, getString(R.string.volume_is_muted), Toast.LENGTH_LONG).show();
+        }
+
+    }
     //region initViews
     private void initViews() {
         navController = Navigation.findNavController(this, R.id.nav_host_fragment);
