@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import androidx.navigation.Navigation;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -36,16 +37,17 @@ public class StoryFragment extends Fragment implements View.OnClickListener {
     private StorageReference mSoundRef;
     private ImageView        storyContent, storyQuiz;
     private String         storyTitle;
+    private TextView txtStoryTitle;
     private File           fileSound;
-    private ProgressBar    progressBar;
+    private boolean isStorySoundDownloaded, isQuizSoundDownloaded;
     private RelativeLayout progressbarContainer;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_story1, container, false);
-        initViews(rootView);
         storyTitle = getArguments().getString(STORY_TITLE, getString(R.string.the_story));
+        initViews(rootView);
         downloadIfConnected();
         return rootView;
     }
@@ -92,7 +94,8 @@ public class StoryFragment extends Fragment implements View.OnClickListener {
     private void initViews(View view) {
         storyContent = view.findViewById(R.id.story_content);
         storyQuiz = view.findViewById(R.id.story_quiz);
-        progressBar = view.findViewById(R.id.progressbar);
+        txtStoryTitle = view.findViewById(R.id.txt_story_content);
+        txtStoryTitle.setText(storyTitle);
         progressbarContainer = view.findViewById(R.id.progress_container);
         storyContent.setOnClickListener(this);
         storyQuiz.setOnClickListener(this);
@@ -104,24 +107,83 @@ public class StoryFragment extends Fragment implements View.OnClickListener {
         progressbarContainer.setVisibility(View.VISIBLE);
         mStorageReference = FirebaseStorage.getInstance().getReference();
 
+        //Download the sounds for the story
         for (int i = 1; i <= 14; i++) {
             mSoundRef = mStorageReference.child("story1/sounds/y" + i + ".ogg");
             fileSound = new File(getActivity().getDir("sounds1", Context.MODE_PRIVATE), "sound_y_" + i);
             mSoundRef.getFile(fileSound)
                     .addOnSuccessListener(taskSnapshot -> {
-                        progressbarContainer.setVisibility(View.GONE);
                         // Successfully downloaded data to local file
-                        MySharedPreferences.getInstance().setStory1soundsDownloaded(getActivity(), true);
+                        isStorySoundDownloaded=true;
                     }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception exception) {
                     // Handle failed download
-                    progressbarContainer.setVisibility(View.GONE);
-                    MySharedPreferences.getInstance().setStory1soundsDownloaded(getActivity(), false);
+                    isStorySoundDownloaded=false;
                     int errorCode = ((StorageException) exception).getErrorCode();
                     Log.e("DownloadException", exception.getMessage());
                 }
             });
+        }
+
+        //download the sounds for the quiz
+        for (int i = 1; i <= 6; i++) {
+            mSoundRef = mStorageReference.child("story1/sounds/qns/y_qn" + i + ".ogg");
+            fileSound = new File(getActivity().getDir("sounds1", Context.MODE_PRIVATE), "y_quiz_" + i);
+            mSoundRef.getFile(fileSound)
+                    .addOnSuccessListener(taskSnapshot -> {
+                        // Successfully downloaded data to local file
+                        isQuizSoundDownloaded=true;
+                    }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    // Handle failed download
+                    isQuizSoundDownloaded=false;
+                    int errorCode = ((StorageException) exception).getErrorCode();
+                    Log.e("DownloadException", exception.getMessage());
+                }
+            });
+        }
+
+        //region download correct and fail sounds
+        mSoundRef = mStorageReference.child("story1/sounds/qns/correct.ogg");
+        fileSound = new File(getActivity().getDir("sounds1", Context.MODE_PRIVATE), "correct");
+        mSoundRef.getFile(fileSound)
+                .addOnSuccessListener(taskSnapshot -> {
+                    // Successfully downloaded data to local file
+                    isQuizSoundDownloaded=true;
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle failed download
+                isQuizSoundDownloaded=false;
+                int errorCode = ((StorageException) exception).getErrorCode();
+                Log.e("DownloadException", exception.getMessage());
+            }
+        });
+
+        mSoundRef = mStorageReference.child("story1/sounds/qns/fail.ogg");
+        fileSound = new File(getActivity().getDir("sounds1", Context.MODE_PRIVATE), "fail");
+        mSoundRef.getFile(fileSound)
+                .addOnSuccessListener(taskSnapshot -> {
+                    // Successfully downloaded data to local file
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle failed download
+                int errorCode = ((StorageException) exception).getErrorCode();
+                Log.e("DownloadException", exception.getMessage());
+            }
+        });
+        //endregion
+
+        if (isStorySoundDownloaded && isQuizSoundDownloaded){
+            progressbarContainer.setVisibility(View.GONE);
+            MySharedPreferences.getInstance().setStory1soundsDownloaded(getActivity(), true);
+        }
+        else {
+            progressbarContainer.setVisibility(View.GONE);
+            MySharedPreferences.getInstance().setStory1soundsDownloaded(getActivity(), false);
         }
     }
     //endregion

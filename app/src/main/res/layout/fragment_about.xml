@@ -4,9 +4,10 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="@dimen/spacing_margin"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 android:layoutDirection="rtl"
+                android:padding="@dimen/spacing_margin"
+                android:background="@drawable/bg_about"
                 tools:showIn="@layout/fragment_about">
 
     <LinearLayout

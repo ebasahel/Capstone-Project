@@ -2,10 +2,11 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">@color/grass</color>
 
     <color name="txt_title">#0478ac</color>
     <color name="txt_content">@android:color/black</color>
+    <color name="grass">#69d251</color>
     <color name="sky_blue">#8fdbfc</color>
     <color name="grey">#50000000</color>
 </resources>

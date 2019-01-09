@@ -5,41 +5,34 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.ImageView;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 import techiebits.net.kidstory.util.MySharedPreferences;
 import techiebits.net.kidstory.R;
 
-import static androidx.navigation.ui.NavigationUI.onNavDestinationSelected;
-import static techiebits.net.kidstory.mainscreen.AllStoriesFragment.STORY_TITLE;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private Toolbar             toolbar;
-    private ImageView           actionShare;
-    private FirebaseAuth        mAuth;
-    private FirebaseUser        user;
-    private NavController       navController;
-    private AppBarConfiguration appBarConfiguration;
+    private FloatingActionButton actionShare,actionAbout;
+    private FirebaseAuth         mAuth;
+    private FirebaseUser         user;
+    private NavController        navController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_main);
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         initViews();
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
@@ -51,21 +44,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //region initViews
     private void initViews() {
         navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
-        NavigationUI.setupWithNavController(toolbar, navController, appBarConfiguration);
         actionShare = findViewById(R.id.ic_share);
+        actionAbout = findViewById(R.id.ic_about);
+        actionAbout.setOnClickListener(this);
         actionShare.setOnClickListener(this);
         navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
             @Override
             public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) {
-                if (arguments != null) {
-                    toolbar.setTitle(arguments.getString(STORY_TITLE));
+                if(destination.getId()!= R.id.allStoriesFragment){
+                    actionAbout.hide();
+                    actionShare.hide();
+                }else {
+                    actionAbout.show();
+                    actionShare.show();
                 }
-//                if(destination.getId()!=R.id.allStoriesFragment) getSupportActionBar().hide();
             }
         });
+
     }
     //endregion
 
@@ -79,19 +74,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
     //endregion
 
-    //region menu
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        return onNavDestinationSelected(item, navController) || super.onOptionsItemSelected(item);
-    }
-    //endregion
-
     //region click listener
     @Override
     public void onClick(View v) {
@@ -102,6 +84,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 sendIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.share_msg));
                 sendIntent.setType("text/plain");
                 startActivity(sendIntent);
+                break;
+            case R.id.ic_about:
+                navController.navigate(R.id.AboutFragment);
                 break;
         }
 

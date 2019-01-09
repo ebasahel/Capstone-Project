@@ -2,39 +2,9 @@
 <android.support.design.widget.CoordinatorLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:background="@drawable/bg"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-    <android.support.design.widget.AppBarLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="@+id/nav_host_fragment"
-            android:id="@+id/appbar"
-            android:theme="@style/AppTheme.AppBarOverlay">
-
-        <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
-                app:popupTheme="@style/AppTheme.PopupOverlay">
-
-            <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/ic_share"
-                    android:layout_gravity="end|center"
-                    android:paddingEnd="@dimen/spacing_margin"
-                    android:src="@android:drawable/ic_menu_share"
-                    android:contentDescription="@string/action_share"
-            />
-
-        </android.support.v7.widget.Toolbar>
-
-    </android.support.design.widget.AppBarLayout>
 
     <fragment
             android:id="@+id/nav_host_fragment"
@@ -42,11 +12,30 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:defaultNavHost="true"
-            app:layout_constraintBottom_toBottomOf="@id/appbar"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="?attr/actionBarSize"
             app:navGraph="@navigation/navigation"/>
 
+    <android.support.design.widget.FloatingActionButton
+            android:id="@+id/ic_share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            app:fabSize="mini"
+            android:src="@android:drawable/ic_menu_share"
+            android:layout_margin="16dp" />
+
+    <android.support.design.widget.FloatingActionButton
+            android:id="@+id/ic_about"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|bottom"
+            android:backgroundTint="@android:color/transparent"
+            app:fabSize="mini"
+            app:elevation="0dp"
+            app:borderWidth="0dp"
+            android:src="@drawable/ic_about"
+            android:layout_margin="16dp" />
 
 </android.support.design.widget.CoordinatorLayout>

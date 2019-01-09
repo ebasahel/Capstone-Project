@@ -6,20 +6,21 @@
         android:layout_height="wrap_content" xmlns:app="http://schemas.android.com/apk/res-auto"
         android:padding="@dimen/spacing_margin">
 
-    <FrameLayout android:layout_width="wrap_content"
+    <FrameLayout android:layout_width="match_parent"
                  android:layout_height="wrap_content"
                  android:id="@+id/container"
                  app:layout_constraintTop_toTopOf="parent"
                  app:layout_constraintEnd_toEndOf="parent"
                  app:layout_constraintStart_toStartOf="parent">
 
-        <ImageView android:layout_width="match_parent"
+        <ImageView android:layout_width="300dp"
                    android:layout_height="200dp"
                    android:src="@drawable/cloud"
+                   android:layout_gravity="center"
                    android:adjustViewBounds="true"
                    android:contentDescription="@string/cloud"
         />
-        <TextView android:layout_width="match_parent"
+        <TextView android:layout_width="200dp"
                   android:layout_height="wrap_content"
                   android:id="@+id/txt_story_title"
                   android:gravity="center"
@@ -27,6 +28,7 @@
                   android:textSize="@dimen/txt_outline"
                   android:textColor="@color/colorPrimary"
                   android:ellipsize="middle"
+                  android:lines="2"
                   tools:text="قصة يونس عليه السلام"
         />
     </FrameLayout>

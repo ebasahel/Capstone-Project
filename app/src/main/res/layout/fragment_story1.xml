@@ -5,6 +5,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/bg_without_cloud"
         tools:context=".story.StoryFragment">
 
 
@@ -39,6 +40,7 @@
         />
         <TextView android:layout_width="match_parent"
                   android:layout_height="wrap_content"
+                  android:id="@+id/txt_story_content"
                   android:gravity="center"
                   android:layout_gravity="center"
                   android:textSize="@dimen/txt_outline"

@@ -1,0 +1,80 @@
+[
+    {
+      "question": "ما اسم النبي الذي\n ذُكر في القصة",
+      "Answers": [
+        {
+          "Answer1": "موسى عليه السلام",
+          "isCorrect": false
+        },
+        {
+          "Answer2": "يونس عليه السلام",
+          "isCorrect": true
+        }
+      ]
+    },
+    {
+      "question": "ما هو الحيوان الذي \n ابتلع سيدنا يونس؟",
+      "Answers": [
+        {
+          "Answer1": "الحوت",
+          "isCorrect": true
+        },
+        {
+          "Answer2": "القرش",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "question": "كم يوما أمهل الله  \n قوم يونس حتى يعبدوه؟",
+      "Answers": [
+        {
+          "Answer1": "يوم واحد",
+          "isCorrect": false
+        },
+        {
+          "Answer2": "ثلاثة أيام",
+          "isCorrect": true
+        }
+      ]
+    },
+    {
+      "question": "هل استمر قوم يونس \nعلى عصيان الله؟",
+      "Answers": [
+        {
+          "Answer1": "لا",
+          "isCorrect": true
+        },
+        {
+          "Answer2": "نعم",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "question": "أين كان يونس عليه السلام\n قبل أن يبتلعه الحوت؟",
+      "Answers": [
+        {
+          "Answer1": "الطائرة",
+          "isCorrect": false
+        },
+        {
+          "Answer2": "السفينة",
+          "isCorrect": true
+        }
+      ]
+    },
+    {
+      "question": "هل آذى الحوت سيدنا يونس \nعليه السلام و هشّم عظامه؟",
+      "Answers": [
+        {
+          "Answer1": "نعم",
+          "isCorrect": false
+        },
+        {
+          "Answer2": "لا",
+          "isCorrect": true
+        }
+      ]
+    }
+]
